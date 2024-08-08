@@ -1,6 +1,6 @@
 <template>
   <header class="sticky z-50 top-0">
-    <nav class="bg-violet-900 border-gray-200">
+    <nav class="bg-[#381257] border-gray-200">
       <div
         class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
       >
@@ -56,7 +56,7 @@
           id="navbar-dropdown"
         >
           <ul
-            class="flex flex-col top-10 font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-violet-900 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
+            class="flex flex-col top-10 font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-[#381257] md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
           >
             <li>
               <a

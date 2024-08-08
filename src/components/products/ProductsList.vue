@@ -107,7 +107,7 @@
             Product Details
           </router-link>
           <button
-            class="flex rounded-lg justify-center mt-3 bg-violet-900 px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+            class="flex rounded-lg justify-center mt-3 bg-[#381257] px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
           >
             Add To Cart
           </button>

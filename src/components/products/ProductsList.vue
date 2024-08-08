@@ -102,7 +102,7 @@
           </div>
           <router-link
             :to="{ name: 'ProductDetailView', params: { id: product.id } }"
-            class="flex rounded-lg justify-center mt-3 bg-gray-500 px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+            class="flex rounded-lg justify-center mt-3 bg-gray-700 px-3 py-2 text-sm font-medium text-white hover:bg-gray-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
           >
             Product Details
           </router-link>

@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../pages/Home.vue";
 import ProductDetailView from "../pages/ProductDetailView.vue";
 import Login from "../pages/Login.vue";
+import Cart from "../pages/Cart.vue";
+import CompareList from "../pages/CompareList.vue";
+import Wishlist from "../pages/Wishlist.vue";
 
 const routes = [
   {
@@ -19,6 +22,21 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart,
+  },
+  {
+    path: "/wishlist",
+    name: "Wishlist",
+    component: Wishlist,
+  },
+  {
+    path: "/compare",
+    name: "CompareList",
+    component: CompareList,
   },
 ];
 

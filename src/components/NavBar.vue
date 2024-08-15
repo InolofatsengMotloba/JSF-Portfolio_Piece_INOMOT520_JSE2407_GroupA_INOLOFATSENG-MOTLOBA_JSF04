@@ -109,11 +109,28 @@
             </li>
             <li>
               <a
+                v-if="isLoggedIn"
+                href="/login"
+                class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+                >Logged in</a
+              >
+              <a
+                v-else
                 href="/login"
                 class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
               >
                 Login
               </a>
+            </li>
+
+            <!-- Logout Button -->
+            <li v-if="isLoggedIn">
+              <button
+                @click="logout"
+                class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0"
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
@@ -123,19 +140,24 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "NavBar",
 
   data() {
-    const isNavbarVisible = ref(false);
-
-    const toggleNavbar = () => {
-      isNavbarVisible.value = !isNavbarVisible.value;
+    return {
+      isNavbarVisible: false,
     };
-
-    return { isNavbarVisible, toggleNavbar };
+  },
+  computed: {
+    ...mapGetters(["isLoggedIn"]),
+  },
+  methods: {
+    ...mapActions(["logout"]),
+    toggleNavbar() {
+      this.isNavbarVisible = !this.isNavbarVisible;
+    },
   },
 };
 </script>

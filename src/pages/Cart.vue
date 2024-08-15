@@ -1,7 +1,12 @@
 <template>
   <div>
-    <h1 v-if="isLoggedIn">Add to Cart Page</h1>
-    <p v-else>Please log in to view items in cart</p>
+    <div v-if="isLoggedIn">
+      <h1>Add to Cart Page</h1>
+    </div>
+    <div v-else>
+      <h1>Please log in to view items in cart</h1>
+      <button><a href="/login">Login</a></button>
+    </div>
   </div>
 </template>
 

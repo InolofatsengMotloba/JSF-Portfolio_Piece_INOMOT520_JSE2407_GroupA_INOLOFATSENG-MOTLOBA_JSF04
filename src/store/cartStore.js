@@ -48,6 +48,16 @@ export const useCartStore = defineStore("cart", () => {
     }
   };
 
+  const totalItems = computed(() => {
+    return cart.value.reduce((sum, item) => sum + item.quantity, 0);
+  });
+
+  const totalPrice = computed(() => {
+    return cart.value
+      .reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+      .toFixed(2);
+  });
+
   return {
     cart,
     userId,
@@ -55,5 +65,7 @@ export const useCartStore = defineStore("cart", () => {
     setUserId,
     addToCart,
     updateQuantity,
+    totalItems,
+    totalPrice,
   };
 });

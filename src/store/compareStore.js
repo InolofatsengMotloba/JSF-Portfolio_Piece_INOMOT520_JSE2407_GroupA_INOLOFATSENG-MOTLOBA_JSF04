@@ -23,6 +23,14 @@ export const useCompareStore = defineStore("compare", () => {
       alert("You can only compare up to 4 items.");
       return;
     }
+
+    const exists = compareList.value.find((item) => item.id === product.id);
+    if (!exists) {
+      compareList.value.push(product);
+      saveCompareList();
+    } else {
+      alert("This item is already in the compare list.");
+    }
   };
 
   return {

@@ -6,6 +6,13 @@ export const useCartStore = defineStore("cart", () => {
   const cart = ref([]);
   const userId = ref(null);
 
+  const loadCart = () => {
+    const storedCart = JSON.parse(localStorage.getItem("cart"));
+    if (storedCart) {
+      cart.value = storedCart;
+    }
+  };
+
   const setUserId = (token) => {
     if (token) {
       const decoded = jwtDecode(token);
@@ -16,6 +23,7 @@ export const useCartStore = defineStore("cart", () => {
   return {
     cart,
     userId,
+    loadCart,
     setUserId,
   };
 });

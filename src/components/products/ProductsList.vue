@@ -107,6 +107,7 @@
             Product Details
           </router-link>
           <button
+            @click="addToCart(product)"
             class="flex rounded-lg justify-center mt-3 bg-[#381257] px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
           >
             Add To Cart
@@ -126,6 +127,7 @@
 import { onMounted, computed } from "vue";
 import { useProductStore } from "../../store/productStore";
 import LoadingCard from "../LoadingCard.vue";
+import { useCartStore } from "../../store/cartStore";
 
 export default {
   name: "ProductList",
@@ -134,6 +136,7 @@ export default {
   },
   setup() {
     const productStore = useProductStore();
+    const cartStore = useCartStore();
 
     /**
      * Fetch products when the component is mounted.
@@ -142,6 +145,10 @@ export default {
     onMounted(() => {
       productStore.fetchProducts();
     });
+
+    const addToCart = (product) => {
+      cartStore.addToCart(product);
+    };
 
     return {
       /**
@@ -155,6 +162,7 @@ export default {
        * @returns {Boolean} Loading state.
        */
       isLoading: computed(() => productStore.isLoading),
+      addToCart,
     };
   },
 };

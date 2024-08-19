@@ -33,9 +33,18 @@ export const useCompareStore = defineStore("compare", () => {
     }
   };
 
+  // Remove a product from the compare list
+  const removeFromCompareList = (productId) => {
+    compareList.value = compareList.value.filter(
+      (item) => item.id !== productId
+    );
+    saveCompareList();
+  };
+
   return {
     compareList,
     addToCompareList,
+    removeFromCompareList,
     loadCompareList,
   };
 });

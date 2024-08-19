@@ -41,10 +41,17 @@ export const useCompareStore = defineStore("compare", () => {
     saveCompareList();
   };
 
+  // Clear the entire compare list
+  const clearCompareList = () => {
+    compareList.value = [];
+    saveCompareList();
+  };
+
   return {
     compareList,
     addToCompareList,
     removeFromCompareList,
+    clearCompareList,
     loadCompareList,
   };
 });

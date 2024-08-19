@@ -87,7 +87,7 @@
                   <p
                     class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
                   >
-                    2
+                    {{ totalItems }}
                   </p>
                 </div>
                 <svg
@@ -148,6 +148,8 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { useCartStore } from "../store/cartStore";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "NavBar",
@@ -165,6 +167,14 @@ export default {
     toggleNavbar() {
       this.isNavbarVisible = !this.isNavbarVisible;
     },
+  },
+  setup() {
+    const cartStore = useCartStore();
+    const { totalItems } = storeToRefs(cartStore);
+
+    return {
+      totalItems,
+    };
   },
 };
 </script>

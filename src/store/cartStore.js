@@ -13,6 +13,10 @@ export const useCartStore = defineStore("cart", () => {
     }
   };
 
+  const saveCart = () => {
+    localStorage.setItem("cart", JSON.stringify(cart.value));
+  };
+
   const setUserId = (token) => {
     if (token) {
       const decoded = jwtDecode(token);
@@ -20,10 +24,23 @@ export const useCartStore = defineStore("cart", () => {
     }
   };
 
+  const addToCart = (product, quantity = 1) => {
+    const existingItem = cart.value.find(
+      (item) => item.product.id === product.id
+    );
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.value.push({ product, quantity });
+    }
+    saveCart();
+  };
+
   return {
     cart,
     userId,
     loadCart,
     setUserId,
+    addToCart,
   };
 });

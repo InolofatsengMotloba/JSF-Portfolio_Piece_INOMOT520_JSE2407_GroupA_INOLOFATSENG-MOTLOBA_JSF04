@@ -48,6 +48,16 @@ export const useCartStore = defineStore("cart", () => {
     }
   };
 
+  const removeItem = (productId) => {
+    cart.value = cart.value.filter((item) => item.product.id !== productId);
+    saveCart();
+  };
+
+  const clearCart = () => {
+    cart.value = [];
+    saveCart();
+  };
+
   const totalItems = computed(() => {
     return cart.value.reduce((sum, item) => sum + item.quantity, 0);
   });
@@ -65,6 +75,8 @@ export const useCartStore = defineStore("cart", () => {
     setUserId,
     addToCart,
     updateQuantity,
+    removeItem,
+    clearCart,
     totalItems,
     totalPrice,
   };

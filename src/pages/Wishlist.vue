@@ -93,19 +93,32 @@
                 >
                   <h2>$ {{ item.price }}</h2>
                 </div>
-                <div>
-                  <span
-                    class="inline-flex items-center rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-black ring-1 ring-inset ring-blue-700/10 mt-2"
-                    >{{ item.category }}</span
-                  >
+                <div class="flex mt-1 space-x-2">
+                  <div class="justify-start flex-1">
+                    <button
+                      class="flex rounded-lg justify-center mt-3 bg-blue-100 px-3 py-2 text-sm font-medium text-black ring-blue-700/10"
+                      >{{ item.category }}</button
+                    >
+                  </div>
+                  <div class="justify-end space-x-2">
+                    <button
+                      @click="removeFromWishlist(item.id)"
+                      class="flex rounded-lg justify-center mt-3 bg-red-500 px-3 py-2 text-sm font-medium text-white hover:bg-red-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+                    >
+                      Remove Item
+                    </button>
+                  </div>
                 </div>
 
-                <button
-                  @click="removeFromWishlist(item.id)"
-                  class="flex rounded-lg justify-center mt-3 bg-red-500 px-3 py-2 text-sm font-medium text-white hover:bg-red-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+                <router-link
+                  :to="{
+                    name: 'ProductDetailView',
+                    params: { id: item.id },
+                  }"
+                  class="flex rounded-lg justify-center mt-3 bg-gray-700 px-3 py-2 text-sm font-medium text-white hover:bg-gray-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
                 >
-                  Remove Item
-                </button>
+                  Product Details
+                </router-link>
                 <button
                   @click="addToCart(item)"
                   class="flex rounded-lg justify-center mt-3 bg-[#381257] px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"

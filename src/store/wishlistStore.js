@@ -10,4 +10,20 @@ export const useWishlistStore = defineStore("wishlist", {
       return state.wishlist.some((item) => item.id === product.id);
     },
   },
+  actions: {
+    addToWishlist(product) {
+      if (!this.isInWishlist(product)) {
+        this.wishlist.push(product);
+        localStorage.setItem("wishlist", JSON.stringify(this.wishlist));
+      }
+    },
+    removeFromWishlist(productId) {
+      this.wishlist = this.wishlist.filter((item) => item.id !== productId);
+      localStorage.setItem("wishlist", JSON.stringify(this.wishlist));
+    },
+    clearWishlist() {
+      this.wishlist = [];
+      localStorage.setItem("wishlist", JSON.stringify(this.wishlist));
+    },
+  },
 });

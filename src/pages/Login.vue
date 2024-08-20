@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-center mt-16">
     <div class="w-full max-w-md p-8 bg-white shadow-md rounded-lg">
+      <h1 class="text-2xl font-bold mb-4 text-slate-600 text-center">LOG IN</h1>
+      <P class="mb-4 text-gray-500 text-center">Enter your username and password to log in to your account</P>
       <form @submit.prevent="login" class="space-y-4">
         <!-- Username Input -->
         <div>

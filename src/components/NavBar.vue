@@ -71,7 +71,7 @@
                 <p
                   class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-3 text-xs text-white"
                 >
-                  0
+                  {{ wishlistCount }}
                 </p>
               </div>
               <a
@@ -150,6 +150,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { useCartStore } from "../store/cartStore";
 import { storeToRefs } from "pinia";
+import { useWishlistStore } from "../store/wishlistStore";
 
 export default {
   name: "NavBar",
@@ -171,9 +172,12 @@ export default {
   setup() {
     const cartStore = useCartStore();
     const { totalItems } = storeToRefs(cartStore);
+    const wishlistStore = useWishlistStore();
+    const { wishlistCount } = storeToRefs(wishlistStore);
 
     return {
       totalItems,
+      wishlistCount,
     };
   },
 };

@@ -81,14 +81,31 @@
               </span>
             </div>
             <div class="justify-end space-x-2">
-              <button aria-label="Add to Favourites">
+              <button aria-label="Add to Favourites" @click="toggleWishlist(product)">
                 <svg
+                  v-if="!isInWishlist(product)"
                   class="me-1.5 h-5 w-5 hover:fill-red-500"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   fill="none"
+                  viewBox="0 0 24 24"
+                  transform="scale(1.6)"
+                >
+                  <path
+                    stroke="currentColor"
+                    d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="me-1.5 h-5 w-5 fill-red-500"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="red"
                   viewBox="0 0 24 24"
                   transform="scale(1.6)"
                 >
@@ -130,6 +147,8 @@ import { useProductStore } from "../../store/productStore";
 import LoadingCard from "../LoadingCard.vue";
 import { useCartStore } from "../../store/cartStore";
 import { useCompareStore } from "../../store/compareStore";
+import { useWishlistStore } from "../../store/wishlistStore";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "ProductList",
@@ -140,6 +159,8 @@ export default {
     const productStore = useProductStore();
     const cartStore = useCartStore();
     const compareStore = useCompareStore();
+    const wishlistStore = useWishlistStore();
+    const { wishlist, isInWishlist } = storeToRefs(wishlistStore);
 
     /**
      * Fetch products when the component is mounted.
@@ -157,6 +178,14 @@ export default {
       compareStore.addToCompareList(product);
     };
 
+    const toggleWishlist = (product) => {
+      if (isInWishlist.value(product)) {
+        wishlistStore.removeFromWishlist(product.id);
+      } else {
+        wishlistStore.addToWishlist(product);
+      }
+    }
+
     return {
       /**
        * Computed property for filtered products.
@@ -170,7 +199,10 @@ export default {
        */
       isLoading: computed(() => productStore.isLoading),
       addToCart,
-      addToCompareList
+      addToCompareList,
+      wishlist,
+      isInWishlist,
+      toggleWishlist,
     };
   },
 };

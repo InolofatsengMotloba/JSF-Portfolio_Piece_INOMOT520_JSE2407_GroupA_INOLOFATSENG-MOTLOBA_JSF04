@@ -85,10 +85,22 @@ export default {
     const route = useRoute();
     const store = useStore();
 
+    /**
+     * Toggles the visibility of the password field.
+     * @function
+     * @returns {void}
+     */
     const togglePasswordVisibility = () => {
       showPassword.value = !showPassword.value;
     };
 
+    /**
+     * Handles user login by sending credentials to the authentication API.
+     * Updates reactive states based on the API response and navigates to the intended route upon success.
+     * @async
+     * @function
+     * @returns {Promise<void>}
+     */
     const login = async () => {
       if (!username.value || !password.value) {
         errorMessage.value = "Username and password are required.";
@@ -138,6 +150,12 @@ export default {
       }
     };
 
+    /**
+     * Lifecycle hook that runs when the component is mounted.
+     * Checks if there is an existing authentication token and redirects if logged in.
+     * @function
+     * @returns {void}
+     */
     onMounted(() => {
       const token = localStorage.getItem("authToken");
       if (token) {

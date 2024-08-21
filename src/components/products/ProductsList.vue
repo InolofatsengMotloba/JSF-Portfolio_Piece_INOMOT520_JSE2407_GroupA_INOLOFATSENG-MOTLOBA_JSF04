@@ -81,7 +81,10 @@
               </span>
             </div>
             <div class="justify-end space-x-2">
-              <button aria-label="Add to Favourites" @click="toggleWishlist(product)">
+              <button
+                aria-label="Add to Favourites"
+                @click="toggleWishlist(product)"
+              >
                 <svg
                   v-if="!isInWishlist(product)"
                   class="me-1.5 h-5 w-5 hover:fill-red-500"
@@ -170,21 +173,50 @@ export default {
       productStore.fetchProducts();
     });
 
+    /**
+     * Adds a product to the cart
+     * @param {Object} product - The product to add to the cart.
+     * @param {string} product.id - The unique identifier of the product.
+     * @param {string} product.name - The name of the product.
+     * @param {number} product.price - The price of the product.
+     * @param {number} product.quantity - The quantity of the product.
+     * @returns {void}
+     */
     const addToCart = (product) => {
       cartStore.addToCart(product);
     };
 
+    /**
+     * Adds a product to the compare list.
+     * @param {Object} product - The product to add to the compare list.
+     * @param {string} product.id - The unique identifier of the product.
+     * @param {string} product.name - The name of the product.
+     * @param {number} product.price - The price of the product.
+     * @param {number} product.quantity - The quantity of the product.
+     * @returns {void}
+     */
     const addToCompareList = (product) => {
       compareStore.addToCompareList(product);
     };
 
+    /**
+     * Toggles the presence of a product in the wishlist.
+     * If the product is already in the wishlist, it is removed;
+     * otherwise, it is added to the wishlist.
+     * @param {Object} product - The product to toggle in the wishlist.
+     * @param {string} product.id - The unique identifier of the product.
+     * @param {string} product.name - The name of the product.
+     * @param {number} product.price - The price of the product.
+     * @param {number} product.quantity - The quantity of the product.
+     * @returns {void}
+     */
     const toggleWishlist = (product) => {
       if (isInWishlist.value(product)) {
         wishlistStore.removeFromWishlist(product.id);
       } else {
         wishlistStore.addToWishlist(product);
       }
-    }
+    };
 
     return {
       /**
@@ -198,6 +230,8 @@ export default {
        * @returns {Boolean} Loading state.
        */
       isLoading: computed(() => productStore.isLoading),
+
+      
       addToCart,
       addToCompareList,
       wishlist,

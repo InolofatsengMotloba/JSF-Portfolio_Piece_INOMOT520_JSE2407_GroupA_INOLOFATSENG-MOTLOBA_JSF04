@@ -123,6 +123,7 @@
 import { useCartStore } from "../store/cartStore";
 import { computed } from "vue";
 import { storeToRefs } from "pinia";
+import { useStore } from "vuex";
 
 export default {
   name: "Cart",
@@ -132,18 +133,17 @@ export default {
 
     const cartItems = computed(() => cart.value);
 
+    const store = useStore();
+    const isLoggedIn = computed(() => store.getters.isLoggedIn);
+
     return {
       cartItems,
       totalPrice,
+      isLoggedIn,
       updateQuantity: cartStore.updateQuantity,
       removeItem: cartStore.removeItem,
       clearCart: cartStore.clearCart,
     };
-  },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
-    },
   },
 };
 </script>

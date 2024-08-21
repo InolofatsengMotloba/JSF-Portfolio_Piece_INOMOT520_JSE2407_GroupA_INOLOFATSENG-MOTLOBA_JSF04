@@ -156,16 +156,40 @@ import { useStore } from "vuex";
 export default {
   name: "NavBar",
   setup() {
+
+    /**
+     * Vuex store instance for accessing global state and actions.
+     * @type {store}
+     */
     const store = useStore();
 
+    /**
+     * Reactive reference to toggle the visibility of the navbar.
+     * @type {ref<Boolean>}
+     */
     const isNavbarVisible = ref(false);
 
+    /**
+     * Toggles the visibility state of the navbar.
+     * @function
+     * @returns {void}
+     */
     const toggleNavbar = () => {
       isNavbarVisible.value = !isNavbarVisible.value;
     };
 
+    /**
+     * Computed property that checks if the user is logged in.
+     * @type {computed<Boolean>}
+     * @returns {Boolean} True if the user is logged in, otherwise false.
+     */
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
 
+    /**
+     * Logs out the user by dispatching the logout action in Vuex.
+     * @function
+     * @returns {void}
+     */
     const logout = () => {
       store.dispatch("logout");
     };

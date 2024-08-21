@@ -97,8 +97,9 @@
                   <div class="justify-start flex-1">
                     <button
                       class="flex rounded-lg justify-center mt-3 bg-blue-100 px-3 py-2 text-sm font-medium text-black ring-blue-700/10"
-                      >{{ item.category }}</button
                     >
+                      {{ item.category }}
+                    </button>
                   </div>
                   <div class="justify-end space-x-2">
                     <button
@@ -158,29 +159,31 @@
 </template>
 
 <script>
+import { ref, computed } from "vue";
 import { useWishlistStore } from "../store/wishlistStore";
 import { useCartStore } from "../store/cartStore";
 import { storeToRefs } from "pinia";
 
 export default {
   name: "WishList",
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
-    },
-  },
   setup() {
     const wishlistStore = useWishlistStore();
     const cartStore = useCartStore();
+
     const { wishlist } = storeToRefs(wishlistStore);
 
-    function addToCart(item) {
+    const isLoggedIn = computed(() => {
+      return cartStore.isLoggedIn; 
+    });
+
+    const addToCart = (item) => {
       cartStore.addToCart(item);
-      // wishlistStore.removeFromWishlist(item.id);
-    }
+      // wishlistStore.removeFromWishlist(item.id); 
+    };
 
     return {
       wishlist,
+      isLoggedIn,
       removeFromWishlist: wishlistStore.removeFromWishlist,
       clearWishlist: wishlistStore.clearWishlist,
       addToCart,

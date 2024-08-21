@@ -7,19 +7,11 @@
           <thead>
             <tr class="bg-white">
               <th class="text-left p-4 border-b text-slate-700">Product</th>
-              <th class="text-left p-4 border-b text-slate-700">Description</th>
-              <th class="text-left p-4 border-b text-slate-700">Price</th>
-              <th class="text-left p-4 border-b text-slate-700">Rating</th>
-              <th class="text-left p-4 border-b text-slate-700">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="product in compareList"
-              :key="product.id"
-              class="bg-white"
-            >
-              <td class="p-4 border-b">
+              <th
+                v-for="product in compareList"
+                :key="product.id"
+                class="p-4 border-b text-slate-700 max-w-xs"
+              >
                 <div class="flex items-center">
                   <img
                     class="h-20 w-20 object-contain mr-4"
@@ -30,15 +22,47 @@
                     product.title
                   }}</span>
                 </div>
-              </td>
-              <td class="p-4 border-b text-gray-700 mb-3">
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="bg-white">
+              <td class="p-4 border-b text-slate-700">Description</td>
+              <td
+                v-for="product in compareList"
+                :key="product.id"
+                class="p-4 border-b text-gray-700 max-w-xs"
+              >
                 {{ product.description }}
               </td>
-              <td class="p-4 border-b text-slate-500">${{ product.price }}</td>
-              <td class="p-4 border-b text-gray-700 mb-3">
+            </tr>
+            <tr class="bg-white">
+              <td class="p-4 border-b text-slate-700">Price</td>
+              <td
+                v-for="product in compareList"
+                :key="product.id"
+                class="p-4 border-b text-slate-500 max-w-xs"
+              >
+                ${{ product.price }}
+              </td>
+            </tr>
+            <tr class="bg-white">
+              <td class="p-4 border-b text-slate-700">Rating</td>
+              <td
+                v-for="product in compareList"
+                :key="product.id"
+                class="p-4 border-b text-gray-700 max-w-xs"
+              >
                 ⭐ {{ product.rating?.rate }}
               </td>
-              <td class="p-4 border-b">
+            </tr>
+            <tr class="bg-white">
+              <td class="p-4 border-b text-slate-700">Actions</td>
+              <td
+                v-for="product in compareList"
+                :key="product.id"
+                class="p-4 border-b max-w-xs"
+              >
                 <button
                   @click="removeFromCompareList(product.id)"
                   class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
@@ -137,4 +161,3 @@ export default {
   },
 };
 </script>
-

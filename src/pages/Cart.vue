@@ -131,9 +131,20 @@ export default {
     const cartStore = useCartStore();
     const { cart, totalPrice } = storeToRefs(cartStore);
 
+    /**
+     * Computed property for accessing cart items.
+     * @type {computed<Array>}
+     * @returns {Array} Array of items in the cart.
+     */
     const cartItems = computed(() => cart.value);
 
     const store = useStore();
+
+    /**
+     * Computed property to check if the user is logged in.
+     * @type {computed<Boolean>}
+     * @returns {Boolean} True if the user is logged in, otherwise false.
+     */
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
 
     return {

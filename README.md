@@ -1,10 +1,10 @@
 # 🏪 VUE CHALLENGE | JSF 04👔
 
 ## Link to Deployed App
-![Deployed App](https://her-ecommerce-app.netlify.app/)
+[Deployed App](https://her-ecommerce-app.netlify.app/)
 
 ## Presentation Link
-![CDV04 Presentation](https://youtu.be/UvASJFkG_Es)
+[CDV04 Presentation](https://youtu.be/UvASJFkG_Es)
 
 ## 🛒 Introduction
 In this project, I built an e-commerce application to test my skills with VUe. It offers a smooth browsing experience, quick loading times, and an attractive design using Vue's efficient reactivity and component-based architecture.

@@ -5,6 +5,7 @@ import Login from "../pages/Login.vue";
 import Cart from "../pages/Cart.vue";
 import CompareList from "../pages/CompareList.vue";
 import Wishlist from "../pages/Wishlist.vue";
+import store from "../store/loginStore"; // Import the store
 
 const routes = [
   {
@@ -22,21 +23,25 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+    meta: { requiresAuth: false }, // Public route
   },
   {
     path: "/cart",
     name: "Cart",
     component: Cart,
+    meta: { requiresAuth: true }, 
   },
   {
     path: "/wishlist",
     name: "Wishlist",
     component: Wishlist,
+    meta: { requiresAuth: true }, 
   },
   {
     path: "/compare",
     name: "CompareList",
     component: CompareList,
+    meta: { requiresAuth: true }, 
   },
 ];
 
@@ -48,6 +53,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = store.getters.isLoggedIn;
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next({
+      path: "/login",
+      query: { redirect: to.fullPath }, 
+    });
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -147,35 +147,40 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import { useCartStore } from "../store/cartStore";
-import { storeToRefs } from "pinia";
 import { useWishlistStore } from "../store/wishlistStore";
+import { storeToRefs } from "pinia";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "NavBar",
-
-  data() {
-    return {
-      isNavbarVisible: false,
-    };
-  },
-  computed: {
-    ...mapGetters(["isLoggedIn"]),
-  },
-  methods: {
-    ...mapActions(["logout"]),
-    toggleNavbar() {
-      this.isNavbarVisible = !this.isNavbarVisible;
-    },
-  },
   setup() {
+    const store = useStore();
+
+    const isNavbarVisible = ref(false);
+
+    const toggleNavbar = () => {
+      isNavbarVisible.value = !isNavbarVisible.value;
+    };
+
+    const isLoggedIn = computed(() => store.getters.isLoggedIn);
+
+    const logout = () => {
+      store.dispatch("logout");
+    };
+
     const cartStore = useCartStore();
     const { totalItems } = storeToRefs(cartStore);
+
     const wishlistStore = useWishlistStore();
     const { wishlistCount } = storeToRefs(wishlistStore);
 
     return {
+      isNavbarVisible,
+      toggleNavbar,
+      isLoggedIn,
+      logout,
       totalItems,
       wishlistCount,
     };

@@ -1,13 +1,29 @@
 # 🏪 VUE CHALLENGE | JSF 04👔
 
-## 🛒 Introduction
+## Link to Deployed App
+![Deployed App](https://her-ecommerce-app.netlify.app/)
 
+## Presentation Link
+![CDV04 Presentation](https://youtu.be/UvASJFkG_Es)
+
+## 🛒 Introduction
+In this project, I built an e-commerce application to test my skills with VUe. It offers a smooth browsing experience, quick loading times, and an attractive design using Vue's efficient reactivity and component-based architecture.
 
 ## 🤖 Technologies
-
+- HTML: Structuring components and pages.
+- CSS3: Styling with Tailwind CSS for a utility-first approach.
+- JavaScript: Managing logic, interactions, and API requests.
+- Vue.js: Framework for building the app's user interface with a reactive and component-based approach.
+- Pinia: For state management, handling data such as product lists and applied filters, add to cart, wishlist and comparelist.
+- Vuex: For state manangement, handling login data.
+- Vite: A build tool for fast development and efficient bundling.
+- Fakestore API: A free API providing e-commerce product data.
 
 ## Setup Instructions 🚀
-
+1. Clone the Repository & Open Terminal
+2. Install Dependencies: `npm install`
+3. Start the Development Server: npm run dev
+4. View the Live App: Follow the provided link to see the application in action.
 
 ## Usage Examples 🛍️
 ### Home Page 🏠

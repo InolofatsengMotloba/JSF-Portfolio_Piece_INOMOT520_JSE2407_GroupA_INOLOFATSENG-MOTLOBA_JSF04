@@ -92,17 +92,40 @@ export default {
   name: "CompareList",
   setup() {
     const compareStore = useCompareStore();
+
+    /**
+     * Computed property for accessing the list of compared products.
+     * @type {computed<Array>}
+     * @returns {Array} Array of compared products.
+     */
     const compareList = computed(() => compareStore.compareList);
 
+    /**
+     * Function to remove a product from the comparison list.
+     * @function
+     * @param {string} productId - The ID of the product to remove from the comparison list.
+     * @returns {void}
+     */
     const removeFromCompareList = (productId) => {
       compareStore.removeFromCompareList(productId);
     };
 
+    /**
+     * Function to clear all products from the comparison list.
+     * @function
+     * @returns {void}
+     */
     const clearCompareList = () => {
       compareStore.clearCompareList();
     };
 
     const store = useStore();
+
+    /**
+     * Computed property to check if the user is logged in.
+     * @type {computed<Boolean>}
+     * @returns {Boolean} True if the user is logged in, otherwise false.
+     */
     const isLoggedIn = computed(() => store.getters.isLoggedIn);
 
     return {

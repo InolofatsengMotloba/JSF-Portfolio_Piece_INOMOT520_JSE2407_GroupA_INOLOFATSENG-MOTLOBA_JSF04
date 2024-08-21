@@ -67,45 +67,44 @@
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useStore } from "vuex";
+
 export default {
   name: "Login",
-  data() {
-    return {
-      username: "",
-      password: "",
-      showPassword: false,
-      isSubmitting: false,
-      errorMessage: "",
-      successMessage: "",
+  setup() {
+    const username = ref("");
+    const password = ref("");
+    const showPassword = ref(false);
+    const isSubmitting = ref(false);
+    const errorMessage = ref("");
+    const successMessage = ref("");
+
+    const router = useRouter();
+    const route = useRoute();
+    const store = useStore();
+
+    const togglePasswordVisibility = () => {
+      showPassword.value = !showPassword.value;
     };
-  },
-  mounted() {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      alert("You are already logged in.");
-      this.$router.push("/");
-    }
-  },
-  methods: {
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
-    },
-    async login() {
-      if (!this.username || !this.password) {
-        this.errorMessage = "Username and password are required.";
+
+    const login = async () => {
+      if (!username.value || !password.value) {
+        errorMessage.value = "Username and password are required.";
         return;
       }
 
-      this.isSubmitting = true;
-      this.errorMessage = "";
-      this.successMessage = "";
+      isSubmitting.value = true;
+      errorMessage.value = "";
+      successMessage.value = "";
 
       try {
         const response = await fetch("https://fakestoreapi.com/auth/login", {
           method: "POST",
           body: JSON.stringify({
-            username: this.username,
-            password: this.password,
+            username: username.value,
+            password: password.value,
           }),
           headers: {
             "Content-Type": "application/json",
@@ -119,25 +118,44 @@ export default {
         const json = await response.json();
         if (json.token) {
           localStorage.setItem("authToken", json.token); // Store JWT
-          this.$store.commit("setAuth", json.token);
+          store.commit("setAuth", json.token);
 
           // Notify user of successful login
-          this.successMessage = "Login successful! Redirecting...";
+          successMessage.value = "Login successful! Redirecting...";
 
           // Redirect to the previously intended route or to home
-          const redirectPath = this.$route.query.redirect || "/";
+          const redirectPath = route.query.redirect || "/";
           setTimeout(() => {
-            this.$router.push(redirectPath);
+            router.push(redirectPath);
           }, 1000);
         } else {
-          this.errorMessage = "Login failed. Please check your credentials.";
+          errorMessage.value = "Login failed. Please check your credentials.";
         }
       } catch (error) {
-        this.errorMessage = error.message;
+        errorMessage.value = error.message;
       } finally {
-        this.isSubmitting = false;
+        isSubmitting.value = false;
       }
-    },
+    };
+
+    onMounted(() => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        alert("You are already logged in.");
+        router.push("/");
+      }
+    });
+
+    return {
+      username,
+      password,
+      showPassword,
+      isSubmitting,
+      errorMessage,
+      successMessage,
+      togglePasswordVisibility,
+      login,
+    };
   },
 };
 </script>

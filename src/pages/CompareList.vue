@@ -86,6 +86,7 @@
 <script>
 import { useCompareStore } from "../store/compareStore";
 import { computed } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "CompareList",
@@ -101,16 +102,16 @@ export default {
       compareStore.clearCompareList();
     };
 
+    const store = useStore();
+    const isLoggedIn = computed(() => store.getters.isLoggedIn);
+
     return {
       compareList,
       removeFromCompareList,
       clearCompareList,
+      isLoggedIn,
     };
-  },
-  computed: {
-    isLoggedIn() {
-      return this.$store.getters.isLoggedIn;
-    },
   },
 };
 </script>
+

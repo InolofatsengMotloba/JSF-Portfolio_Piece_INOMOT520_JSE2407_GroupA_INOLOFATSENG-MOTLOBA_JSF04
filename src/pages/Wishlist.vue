@@ -159,31 +159,43 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
 import { useWishlistStore } from "../store/wishlistStore";
 import { useCartStore } from "../store/cartStore";
 import { storeToRefs } from "pinia";
 
 export default {
   name: "WishList",
+  computed: {
+    /**
+     * Computed property to determine if the user is logged in.
+     * @type {computed<boolean>}
+     */
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    },
+  },
   setup() {
+    // Create instances of the stores
     const wishlistStore = useWishlistStore();
     const cartStore = useCartStore();
 
+    // Convert store state to refs
     const { wishlist } = storeToRefs(wishlistStore);
 
-    const isLoggedIn = computed(() => {
-      return cartStore.isLoggedIn; 
-    });
-
+    /**
+     * Adds an item to the cart and optionally removes it from the wishlist.
+     * @param {Object} item - The product to add to the cart.
+     * @param {number} item.id - The unique identifier of the product.
+     * @param {string} item.name - The name of the product.
+     * @param {number} item.price - The price of the product.
+     */
     const addToCart = (item) => {
       cartStore.addToCart(item);
-      // wishlistStore.removeFromWishlist(item.id); 
+      // wishlistStore.removeFromWishlist(item.id);
     };
 
     return {
       wishlist,
-      isLoggedIn,
       removeFromWishlist: wishlistStore.removeFromWishlist,
       clearWishlist: wishlistStore.clearWishlist,
       addToCart,

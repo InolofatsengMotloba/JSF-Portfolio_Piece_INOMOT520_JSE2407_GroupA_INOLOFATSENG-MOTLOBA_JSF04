@@ -23,6 +23,20 @@
         </div>
       </div>
       <div v-else>
+        <!-- Filter and Sort Components -->
+        <div
+          class="grid lg:flex gap-y-4 gap-x-48 lg:items-start mt-3 mx-auto justify-center"
+        >
+          <Filter
+            :currentCategory="currentCategory"
+            @filter-category="handleCategoryChange"
+          />
+          <Sort
+            :currentSortOrder="currentSortOrder"
+            @sort-order="handleSortChange"
+          />
+        </div>
+
         <button
           @click="clearWishlist"
           class="bg-red-500 my-5 w-auto ml-10 text-white font-semibold py-2 px-4 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:bg-red-400 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-300"
@@ -32,7 +46,7 @@
         <div class="grid justify-center">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             <div
-              v-for="item in wishlist"
+              v-for="item in filteredAndSortedWishlist"
               :key="item.id"
               class="flex flex-col max-h-[130rem] cursor-pointer max-w-80 hover:-translate-y-1 hover:scale-105 duration-300 bg-white border border-slate-200 shadow shadow-slate-950/5 rounded-2xl overflow-hidden"
             >
@@ -162,9 +176,21 @@
 import { useWishlistStore } from "../store/wishlistStore";
 import { useCartStore } from "../store/cartStore";
 import { storeToRefs } from "pinia";
+import Filter from "../components/Filter.vue";
+import Sort from "../components/Sort.vue";
 
 export default {
   name: "WishList",
+  components: {
+    Filter,
+    Sort,
+  },
+  data() {
+    return {
+      currentCategory: "all",
+      currentSortOrder: "default",
+    };
+  },
   computed: {
     /**
      * Computed property to determine if the user is logged in.
@@ -172,6 +198,25 @@ export default {
      */
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    filteredAndSortedWishlist() {
+      let filteredWishlist = this.wishlist;
+
+      // Filter by category
+      if (this.currentCategory !== "all") {
+        filteredWishlist = filteredWishlist.filter(
+          (item) => item.category === this.currentCategory
+        );
+      }
+
+      // Sort by price
+      if (this.currentSortOrder === "asc") {
+        filteredWishlist.sort((a, b) => a.price - b.price);
+      } else if (this.currentSortOrder === "desc") {
+        filteredWishlist.sort((a, b) => b.price - a.price);
+      }
+
+      return filteredWishlist;
     },
   },
   setup() {
@@ -200,6 +245,14 @@ export default {
       clearWishlist: wishlistStore.clearWishlist,
       addToCart,
     };
+  },
+  methods: {
+    handleCategoryChange(category) {
+      this.currentCategory = category;
+    },
+    handleSortChange(sortOrder) {
+      this.currentSortOrder = sortOrder;
+    },
   },
 };
 </script>

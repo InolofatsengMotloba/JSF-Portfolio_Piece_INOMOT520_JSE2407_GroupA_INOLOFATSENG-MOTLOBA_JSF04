@@ -134,9 +134,22 @@
           </button>
           <button
             @click="addToCompareList(product)"
-            class="flex rounded-lg justify-center mt-3 bg-[#220d36] px-3 py-2 text-sm font-medium text-white hover:bg-violet-500 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300"
+            :disabled="isCompareListFull && !isInCompareList(product)"
+            :class="[
+              'flex rounded-lg justify-center mt-3 px-3 py-2 text-sm font-medium',
+              isInCompareList(product)
+                ? 'bg-gray-300 text-gray-700'
+                : 'bg-[#220d36] text-white hover:bg-violet-500',
+              isCompareListFull && !isInCompareList(product)
+                ? 'bg-gray-300 text-gray-500'
+                : '',
+            ]"
           >
-            Compare Items
+            {{
+              isInCompareList(product)
+                ? "Added to compare list"
+                : "Compare Items"
+            }}
           </button>
         </div>
       </div>
@@ -196,7 +209,9 @@ export default {
      * @returns {void}
      */
     const addToCompareList = (product) => {
-      compareStore.addToCompareList(product);
+      if (!isInCompareList(product) && compareStore.compareList.length < 4) {
+        compareStore.addToCompareList(product);
+      }
     };
 
     /**
@@ -218,6 +233,13 @@ export default {
       }
     };
 
+    const isInCompareList = (product) =>
+      compareStore.compareList.some((item) => item.id === product.id);
+
+    const isCompareListFull = computed(
+      () => compareStore.compareList.length >= 4
+    );
+
     return {
       /**
        * Computed property for filtered products.
@@ -237,6 +259,8 @@ export default {
       wishlist,
       isInWishlist,
       toggleWishlist,
+      isInCompareList,
+      isCompareListFull,
     };
   },
 };

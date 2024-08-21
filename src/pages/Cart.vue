@@ -65,10 +65,17 @@
           >
             Clear Cart
           </button>
+          <a href="/checkout">
           <button
             class="w-full bg-[#381257] text-white py-2 rounded-md hover:bg-violet-500 transition-colors mt-2"
           >
             Checkout
+          </button>
+          </a>
+          <button
+            class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-400 transition-colors mt-2"
+          >
+          PayPal Checkout
           </button>
         </div>
       </div>

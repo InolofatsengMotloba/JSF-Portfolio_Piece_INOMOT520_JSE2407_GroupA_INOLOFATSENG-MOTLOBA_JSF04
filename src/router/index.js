@@ -5,6 +5,7 @@ import Login from "../pages/Login.vue";
 import Cart from "../pages/Cart.vue";
 import CompareList from "../pages/CompareList.vue";
 import Wishlist from "../pages/Wishlist.vue";
+import Checkout from "../pages/Checkout.vue";
 import store from "../store/loginStore"; // Import the store
 
 const routes = [
@@ -42,6 +43,11 @@ const routes = [
     name: "CompareList",
     component: CompareList,
     meta: { requiresAuth: true }, 
+  },
+  {
+    path: "/checkout",
+    name: "Checkout",
+    component: Checkout,
   },
 ];
 
